@@ -24,29 +24,29 @@ module.exports = function (options) {
 		var fileOptions = objectAssign({}, options);
 		fileOptions.filename = file.relative;
 
-		if (file.sourceMap) {
-			fileOptions.sourceMaps = true;
-		}
+		// if (file.sourceMap) {
+		// 	fileOptions.sourceMaps = true;
+		// }
 
 		try {
-			ret = traceur.compile(file.contents.toString(), fileOptions);
+			cb(null, traceur.compile(file.contents.toString(), fileOptions));
 
-			if (ret.js) {
-				file.contents = new Buffer(ret.js);
-			}
+			// if (ret.js) {
+			// 	file.contents = new Buffer(ret.js);
+			// }
 
-			if (ret.generatedSourceMap && file.sourceMap) {
-				applySourceMap(file, ret.generatedSourceMap);
-			}
+			// if (ret.generatedSourceMap && file.sourceMap) {
+			// 	applySourceMap(file, ret.generatedSourceMap);
+			// }
 
-			if (ret.errors.length > 0) {
-				cb(new gutil.PluginError('gulp-traceur', '\n' + ret.errors.join('\n'), {
-					fileName: file.path,
-					showStack: false
-				}));
-			} else {
-				cb(null, file);
-			}
+			// if (ret.errors.length > 0) {
+			// 	cb(new gutil.PluginError('gulp-traceur', '\n' + ret.errors.join('\n'), {
+			// 		fileName: file.path,
+			// 		showStack: false
+			// 	}));
+			// } else {
+			// 	cb(null, file);
+			// }
 		} catch (err) {
 			cb(new gutil.PluginError('gulp-traceur', err, {
 				fileName: file.path
